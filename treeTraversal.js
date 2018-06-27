@@ -146,6 +146,35 @@ class BinarySearchTree {
   }
 }
 
+const preOrder = data => {
+  console.log(data.key);
+
+  if (data.left) {
+    // console.log('LEFT',data.key);
+    preOrder(data.left);
+  }
+
+  if (data.right) {
+    // console.log('RIGHT',data.key);
+    preOrder(data.right);
+  }
+};
+
+// const inOrder = data => {
+//   console.log(data.key);
+
+//   if (data.left) {
+//     // console.log('LEFT',data.key);
+//     preOrder(data.left);
+//   }
+
+//   if (data.right) {
+//     // console.log('RIGHT',data.key);
+//     preOrder(data.right);
+//   }
+// };
+
+
 let data = new BinarySearchTree();
 
 data.insert(25);
@@ -165,16 +194,8 @@ data.insert(90);
 data.insert(22);
 
 
-const preOrder = data => {
-  console.log(data.key);
 
-  if (data.left) {
-    return preOrder(data.left);
-  }
-
-  if (data.right) {
-    return preOrder(data.right);
-  }
-};
 
 console.log(preOrder(data));
+
+
