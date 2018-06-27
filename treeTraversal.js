@@ -160,19 +160,31 @@ const preOrder = data => {
   }
 };
 
-// const inOrder = data => {
-//   console.log(data.key);
+const inOrder = data => {
 
-//   if (data.left) {
-//     // console.log('LEFT',data.key);
-//     preOrder(data.left);
-//   }
+  if(data.left) {
+    inOrder(data.left);
+  }
 
-//   if (data.right) {
-//     // console.log('RIGHT',data.key);
-//     preOrder(data.right);
-//   }
-// };
+  console.log(data.key);
+
+  if (data.right) {
+    inOrder(data.right);
+  }
+};
+
+const postOrder = data => {
+
+  if(data.left) {
+    postOrder(data.left);
+  }
+
+  if (data.right) {
+    postOrder(data.right);
+  }
+
+  console.log(data.key);
+};
 
 
 let data = new BinarySearchTree();
@@ -194,8 +206,6 @@ data.insert(90);
 data.insert(22);
 
 
-
-
-console.log(preOrder(data));
-
-
+// console.log(preOrder(data));
+// console.log(inOrder(data));
+// console.log(postOrder(data));
