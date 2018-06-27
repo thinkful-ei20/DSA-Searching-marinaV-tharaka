@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -23,6 +22,31 @@ class App extends Component {
       return `Item was not found and it took ${linearCount} times to iterate through data.`;
     };
 
+    this.binarySearch = (input, start = 0, end = this.state.list.length - 1) => {
+      const number = parseInt(input);
+      // base case
+      if (start > end) {
+        return `Item was not found and it took`;
+      }
+
+      //
+      const middleIndex = Math.floor((start + end) / 2);
+
+      const item = this.state.list[middleIndex];
+
+      console.log(start, end, middleIndex);
+
+      if (item === number) {
+        return 'Item is found';
+      }
+      else if (item < number) {
+        return this.binarySearch(number, middleIndex + 1, end);
+      }
+      else if (item > number) {
+        return this.binarySearch(number, start, middleIndex - 1);
+      }
+    };
+
   }
 
 
@@ -36,8 +60,9 @@ class App extends Component {
 
   calcBinarySearch = e => {
     e.preventDefault();
-    const value = this.input.value;
-    console.log(value);
+    const userInput = this.input.value;
+    const textOutput = this.binarySearch(userInput);
+    console.log(textOutput);
   };
 
   render() {
