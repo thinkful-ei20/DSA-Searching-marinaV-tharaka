@@ -6,22 +6,32 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // userInput: null,
-      count: 0,
+      textOutput: '',
       list: [89, 30, 25, 32, 72]
     };
     this.linearSearch = number => {
       //some logic
+      let num = parseInt(number);
+      let linearCount = 0;
 
+      for(let i = 0; i < this.state.list.length; i++) {
+        linearCount++;
+        if(this.state.list[i] === num) {
+          return `It took ${linearCount} times to find the number for the linear search.`;
+        }
+      }
+      return `Item was not found and it took ${linearCount} times to iterate through data.`;
     };
 
   }
 
+
+
   calcLinearSearch = e => {
     e.preventDefault();
     const userInput = this.input.value;
-    const count = this.linearSearch(userInput);
-    console.log(count);
+    const textOutput = this.linearSearch(userInput);
+    this.setState({textOutput: textOutput});
   };
 
   calcBinarySearch = e => {
@@ -47,7 +57,7 @@ class App extends Component {
             >Binary Search</button>
           </label>
         </form>
-        <div>It took ${this.count} numbers of times.</div>
+        <div>{this.state.textOutput}</div>
       </React.Fragment>
     );
   }
