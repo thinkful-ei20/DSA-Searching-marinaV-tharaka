@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
 
+
+
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       textOutput: '',
-      list: [89, 30, 25, 32, 72]
+      list: [1, 2, 3, 4, 5, 6, 25, 20, 30, 72, 89]
     };
     this.linearSearch = number => {
       //some logic
@@ -22,28 +25,35 @@ class App extends Component {
       return `Item was not found and it took ${linearCount} times to iterate through data.`;
     };
 
-    this.binarySearch = (input, start = 0, end = this.state.list.length - 1) => {
+    this.binarySearch = (input, start, end, count) => {
+      let minIndex = start === undefined ? 0 : start;
+      let maxIndex = end === undefined ? this.state.list.length : end;
+      let tick = count === undefined ? 0 : count;
       const number = parseInt(input);
       // base case
-      if (start > end) {
-        return `Item was not found and it took`;
+      if (minIndex > maxIndex) {
+        return `Item was not found. It took ${tick} time(s) to iterate over the data set using Binary Search algorithm`;
       }
 
       //
-      const middleIndex = Math.floor((start + end) / 2);
+      const middleIndex = Math.floor((minIndex + maxIndex) / 2);
 
       const item = this.state.list[middleIndex];
 
-      console.log(start, end, middleIndex);
+      console.log(minIndex, maxIndex, middleIndex, tick);
 
       if (item === number) {
-        return 'Item is found';
+        tick++;
+        console.log(tick);
+        return `It took ${tick} time(s) to iterate over the data set using Binary Search algorithm`;
       }
       else if (item < number) {
-        return this.binarySearch(number, middleIndex + 1, end);
+        tick++;
+        return this.binarySearch(number, middleIndex + 1, maxIndex, tick);
       }
       else if (item > number) {
-        return this.binarySearch(number, start, middleIndex - 1);
+        tick++;
+        return this.binarySearch(number, minIndex, middleIndex - 1, tick);
       }
     };
 
@@ -55,14 +65,18 @@ class App extends Component {
     e.preventDefault();
     const userInput = this.input.value;
     const textOutput = this.linearSearch(userInput);
-    this.setState({textOutput: textOutput});
+    this.setState({
+      textOutput
+    });
   };
 
   calcBinarySearch = e => {
     e.preventDefault();
     const userInput = this.input.value;
     const textOutput = this.binarySearch(userInput);
-    console.log(textOutput);
+    this.setState({
+      textOutput
+    });
   };
 
   render() {
